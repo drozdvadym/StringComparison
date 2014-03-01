@@ -29,7 +29,7 @@ namespace StringComparison
 
         int maxLen = std::max(lstr.length(), rstr.length());
 		
-        return  (maxLen - levenshtein) / maxLen;
+        return (maxLen - levenshtein) / maxLen;
     }
 
 }
