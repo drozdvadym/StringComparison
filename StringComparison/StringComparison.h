@@ -3,6 +3,7 @@
 #include "Levenshtein.h"
 
 #include <string>
+#include <cctype>
 #include <algorithm>
 
 namespace StringComparison
