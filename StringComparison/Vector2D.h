@@ -47,7 +47,7 @@ inline void Vector2D<_T>::show()
 		for (size_t j = 0; j < cols; j++) {
 			std::cout << data[getIdx(i, j)] << "\t";
 		}
-		std::cout << endl;
+		std::cout << std::endl;
 	}
-	std::cout << endl;
+	std::cout << std::endl;
 }
