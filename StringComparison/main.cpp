@@ -27,18 +27,18 @@ int main()
 	//set unicode locale
 	setlocale(LC_ALL, ""); 
 
-	test_similarity(L"Корова", L"Корова");
-	test_similarity(L"Корова", L"КоровА");
-	test_similarity(L"Корова", L"КороВА");
-	test_similarity(L"Корова", L"Коро1А");
-	test_similarity(L"Корова", L"Коров");
-	test_similarity(L"Корова", L"К");
-	test_similarity(L"Корова", L"КОРОВА");
-	test_similarity(L"Корова", L"123345");
-	test_similarity(L"Корова", L"окорав");
-	test_similarity(L"Корова", L"ОКОРАВ");
-	test_similarity(L"Корова", L"кОРОВА");
-	test_similarity(L"Корова", L"KOROVA");
+	test_similarity(L"РљРѕСЂРѕРІР°", L"РљРѕСЂРѕРІР°");
+	test_similarity(L"РљРѕСЂРѕРІР°", L"РљРѕСЂРѕРІРђ");
+	test_similarity(L"РљРѕСЂРѕРІР°", L"РљРѕСЂРѕР’Рђ");
+	test_similarity(L"РљРѕСЂРѕРІР°", L"РљРѕСЂРѕ1Рђ");
+	test_similarity(L"РљРѕСЂРѕРІР°", L"РљРѕСЂРѕРІ");
+	test_similarity(L"РљРѕСЂРѕРІР°", L"Рљ");
+	test_similarity(L"РљРѕСЂРѕРІР°", L"РљРћР РћР’Рђ");
+	test_similarity(L"РљРѕСЂРѕРІР°", L"123345");
+	test_similarity(L"РљРѕСЂРѕРІР°", L"РѕРєРѕСЂР°РІ");
+	test_similarity(L"РљРѕСЂРѕРІР°", L"РћРљРћР РђР’");
+	test_similarity(L"РљРѕСЂРѕРІР°", L"РєРћР РћР’Рђ");
+	test_similarity(L"РљРѕСЂРѕРІР°", L"KOROVA");
 	test_similarity(L"korova", L"KOROVA");
 
 	return 0;
