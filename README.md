@@ -4,8 +4,10 @@ For valid console output, before compiling with CL (visual studio compiler) you 
 
 How to:
 
-Visual Studio
+Visual Studio:
+
 CL main.cpp
 
 GCC:
+
 g++ main.c -o StringComparison
