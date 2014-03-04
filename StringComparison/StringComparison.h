@@ -1,3 +1,23 @@
+//
+// -*- Mode: c++; tab-width: 4; -*-
+// -*- ex: ts=4 -*-
+//
+
+//
+// StringComparison.h	(V. Drozd)
+// StringComparison/StringComparison.h
+//
+
+//
+// THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND,
+// EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED
+// WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR PURPOSE.
+//
+
+///////////////////////////////////////////////////////////////////////////////
+// %% BeginSection: includes
+//
+
 #pragma once
 
 #include "Levenshtein.h"
@@ -6,30 +26,46 @@
 #include <cctype>
 #include <algorithm>
 
+///////////////////////////////////////////////////////////////////////////////
+// %% BeginSection: type definition
+//
+
 namespace StringComparison
 {
     enum MODE { CASE_SENSITIVE, CASE_INSENSITIVE };
 
-    template <typename _String_T>
-    float getSimilarity(_String_T &s1, _String_T &s2, MODE mode = CASE_INSENSITIVE);
-
-
-    template <typename _String_T>
-    float getSimilarity(_String_T &s1, _String_T &s2, MODE mode)
+    template <class Type>
+    class ToLowerFunctor
     {
-        _String_T lstr = s1;
-        _String_T rstr = s2;
+    public:
+        Type operator ( ) (Type& elem) const
+        {
+            return _T_lower(elem);
+        }
+    };
 
-        if (mode == StringComparison::CASE_INSENSITIVE) {
-            std::transform(lstr.begin(), lstr.end(), lstr.begin(), ::tolower);
-            std::transform(rstr.begin(), rstr.end(), rstr.begin(), ::tolower);
+    template <typename _String_T>
+    float getSimilarity(_String_T &s1, _String_T &s2, MODE mode = CASE_SENSITIVE)
+    {
+        auto lstr = s1;
+        auto rstr = s2;
+
+        using SymType = typename std::remove_reference<decltype(lstr[0])>::type;
+
+        if (CASE_INSENSITIVE == mode) {
+            std::transform(lstr.begin(), lstr.end(), lstr.begin(), ToLowerFunctor<SymType>());
+            std::transform(rstr.begin(), rstr.end(), rstr.begin(), ToLowerFunctor<SymType>());
         }
 
         float levenshtein = Levenshtein(lstr.c_str(), rstr.c_str());
 
         int maxLen = std::max(lstr.length(), rstr.length());
-		
+
         return (maxLen - levenshtein) / maxLen;
     }
 
 }
+
+//
+//
+//

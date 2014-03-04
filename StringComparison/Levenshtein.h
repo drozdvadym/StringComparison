@@ -1,86 +1,80 @@
+﻿//
+// -*- Mode: c++; tab-width: 4; -*-
+// -*- ex: ts=4 -*-
+//
+
+//
+// Levenshtein.h	(V. Drozd)
+// StringComparison/Levenshtein.h
+//
+
+//
+// THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND,
+// EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED
+// WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR PURPOSE.
+//
+
+///////////////////////////////////////////////////////////////////////////////
+// %% BeginSection: includes
+//
+
 #pragma once
 
-#include "Vector2D.h"
-#include <algorithm>
-
-#include <cstring>
 #include <cctype>
+#include <cwctype>
+#include <cwchar>
+#include <cstring>
 
-/*
- * Declarations
- */
+///////////////////////////////////////////////////////////////////////////////
+// %% BeginSection: declarations
+//
+
+
+//
+// Get modified Levenshtein distance for to strings
+// this distance depends of symbol register and phonetic group 
+//
+// available _Str_T types:
+//  - char
+//  - const char
+//  - wchar_t
+//  - const wchar_t
+//
 
 template <typename _Str_T>
 float Levenshtein(_Str_T *s1, _Str_T *s2);
 
-/*
- * Definitions
- */
+//
+// Get  phonetic group for symbol
+// NOTE!!! now support only russian wide char symbols
+//
+
+wchar_t getMetaphone(wchar_t wsym);
+
+///////////////////////////////////////////////////////////////////////////////
+// %% BeginSection: inline function
+//
 
 inline char _T_lower(char c)
 {
-    return ::tolower(c);
+    return std::tolower(c);
 }
 
 inline wchar_t _T_lower(const wchar_t wc)
 {
-    return ::towlower(wc);
+    return std::towlower(wc);
 }
 
 inline size_t _T_slen(const char *s)
 {
-    return strlen(s);
+    return std::strlen(s);
 }
 
 inline size_t _T_slen(const wchar_t *ws)
 {
-    return wcslen(ws);
+    return std::wcslen(ws);
 }
 
-template <typename _Str_T>
-float Levenshtein(_Str_T *s1, _Str_T *s2)
-{
-    size_t len1 = _T_slen(s1);
-    size_t len2 = _T_slen(s2);
-
-    if (!len1 || !len2) {
-        return std::max(len1, len2);
-        //NOTREACHED
-    }
-
-    Vector2D<float> mat(len1 + 1, len2 + 1);
-
-    for (size_t i = 0; i <= len1; ++i)
-        mat.elem(i, 0) = i;
-
-        for (size_t i = 0; i <= len2; ++i)
-        mat.elem(0, i) = i;
-
-#ifdef _DBG_LEVENSTEIN
-    mat.show();
-#endif
-	
-    for (size_t i = 1; i <= len1; ++i) {
-        for (size_t j = 1; j <= len2; ++j) {
-            if (s1[i - 1] != s2[j - 1]) {
-                mat.elem(i, j) = std::min(
-                    std::min(mat.elem(i, j - 1), mat.elem(i - 1, j)),
-                    mat.elem(i - 1, j - 1)
-                );
-
-                mat.elem(i, j)++;
-                //Correct if we have same symbol but different case
-                if (_T_lower(s1[i - 1]) == _T_lower(s2[j - 1]))
-                    mat.elem(i, j) -= 0.5;
-            }
-            else {
-                mat.elem(i, j) = mat.elem(i - 1, j - 1);
-            }
-#ifdef _DBG_LEVENSTEIN
-            mat.show();
-#endif
-        }
-    }
-
-    return mat.elem(len1, len2);
-}
+//
+//
+//
