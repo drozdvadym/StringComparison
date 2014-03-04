@@ -1,13 +1,11 @@
 StringComparison
 ================
-For valid console output, before compiling with CL (visual studio compiler) you must re save main.cpp with 1251 page encoding
-
 How to:
 
-Visual Studio:
+Visual Studio (with c++11 support):
 
-CL main.cpp
+CL /EHsc main.cpp Levenshtein.cpp /Fe:StringComparison
 
 GCC:
 
-g++ main.c -o StringComparison
+>g++ -std=c++11 Levenshtein.cpp main.cpp -o StringComparison
