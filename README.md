@@ -4,7 +4,7 @@ How to:
 
 Visual Studio (with c++11 support):
 
-CL /EHsc main.cpp Levenshtein.cpp /Fe:StringComparison
+>CL /EHsc main.cpp Levenshtein.cpp /Fe:StringComparison
 
 GCC:
 
