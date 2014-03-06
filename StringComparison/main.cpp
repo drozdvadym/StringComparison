@@ -59,7 +59,7 @@ int main()
     test_similarity(L"Корова", L"кОРОВА");
     test_similarity(L"Корова", L"KOROVA");
 
-	test_similarity("korova", "KOROVA");
+    test_similarity("korova", "KOROVA");
 
     return 0;
 }
