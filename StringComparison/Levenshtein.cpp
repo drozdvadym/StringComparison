@@ -50,7 +50,7 @@ _T min3(_T a1, _T a2, _T a3);
 //
 
 template <typename _Str_T>
-float Levenshtein(_Str_T *s1, _Str_T *s2)
+float Levenshtein(_Str_T* s1, _Str_T* s2)
 {
     size_t len1 = _T_slen(s1);
     size_t len2 = _T_slen(s2);

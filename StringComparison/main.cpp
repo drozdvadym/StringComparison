@@ -24,23 +24,18 @@
 #include <Windows.h>
 
 ///////////////////////////////////////////////////////////////////////////////
-// %% BeginSection: definitions
+// %% BeginSection: declarations
 //
 
-void test_similarity(const std::wstring &s1, const std::wstring &s2)
-{
-    std::cout << "================================================\n";
-    std::cout << "Test similarity of:\n";
+template <typename Type>
+void test_similarity(Type s1, Type s2);
 
-    std::wcout << s1 << L" and " <<s2 << std::endl;
+template <typename Type>
+void printString(Type& s);
 
-    float similarity = StringComparison::getSimilarity(
-        s1, s2, StringComparison::CASE_SENSITIVE
-    );
-
-    std::cout << "Similarity is: " << similarity << std::endl;
-
-}
+///////////////////////////////////////////////////////////////////////////////
+// %% BeginSection: definitions
+//
 
 int main()
 {
@@ -50,6 +45,7 @@ int main()
     test_similarity(L"Корова", L"Корова");
     test_similarity(L"Корова", L"Кырова");
     test_similarity(L"Корова", L"Карова");
+    test_similarity(L"Корова", L"Карафа");
     test_similarity(L"Корова", L"КАрова");
     test_similarity(L"Корова", L"КоровА");
     test_similarity(L"Корова", L"КороВА");
@@ -62,9 +58,42 @@ int main()
     test_similarity(L"Корова", L"ОКОРАВ");
     test_similarity(L"Корова", L"кОРОВА");
     test_similarity(L"Корова", L"KOROVA");
-    test_similarity(L"korova", L"KOROVA");
+
+	test_similarity("korova", "KOROVA");
 
     return 0;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// %% BeginSection: local definitions
+//
+
+template <typename Type>
+void printString(Type &s)
+{
+    if (sizeof(wchar_t) == sizeof(s[0]))
+        std::wcout << s;
+    else
+        std::cout << s;
+}
+
+template <typename Type>
+void test_similarity(Type s1, Type s2)
+{
+    std::cout << "================================================\n";
+    std::cout << "Test similarity of:\n";
+
+    printString(s1);
+    std::cout << " and ";
+    printString(s2);
+    std::cout << std::endl;
+
+    float similarity = StringComparison::getSimilarity(
+        s1, s2, StringComparison::CASE_SENSITIVE
+    );
+
+    std::cout << "Similarity is: " << similarity << std::endl;
+
 }
 
 //

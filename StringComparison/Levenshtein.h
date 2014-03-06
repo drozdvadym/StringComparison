@@ -42,7 +42,7 @@
 //
 
 template <typename _Str_T>
-float Levenshtein(_Str_T *s1, _Str_T *s2);
+float Levenshtein(_Str_T* s1, _Str_T* s2);
 
 //
 // Get  phonetic group for symbol

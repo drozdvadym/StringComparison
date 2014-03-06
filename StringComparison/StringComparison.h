@@ -34,6 +34,10 @@ namespace StringComparison
 {
     enum MODE { CASE_SENSITIVE, CASE_INSENSITIVE };
 
+    const std::string& createString(const std::string& s) { return s; }
+
+    const std::wstring& createString(const std::wstring& s) { return s; }
+
     template <class Type>
     class ToLowerFunctor
     {
@@ -45,10 +49,10 @@ namespace StringComparison
     };
 
     template <typename _String_T>
-    float getSimilarity(_String_T &s1, _String_T &s2, MODE mode = CASE_SENSITIVE)
+    float getSimilarity(_String_T& s1, _String_T& s2, MODE mode = CASE_SENSITIVE)
     {
-        auto lstr = s1;
-        auto rstr = s2;
+        auto lstr = createString(s1);
+        auto rstr = createString(s2);
 
         using SymType = typename std::remove_reference<decltype(lstr[0])>::type;
 
