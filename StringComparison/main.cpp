@@ -21,45 +21,45 @@
 #include "StringComparison.h"
 #include <iostream>
 
-#include <Windows.h>
+#ifdef _WIN32
+# include <Windows.h>
+#endif
 
 ///////////////////////////////////////////////////////////////////////////////
 // %% BeginSection: declarations
 //
 
 template <typename Type>
-void test_similarity(Type s1, Type s2);
-
-template <typename Type>
-void printString(Type& s);
+void TestSimilarity(Type s1, Type s2);
 
 ///////////////////////////////////////////////////////////////////////////////
 // %% BeginSection: definitions
 //
 
-int main()
-{
+int main() {
     //set unicode locale
     setlocale(LC_ALL, ""); 
+	setlocale(LC_ALL, "Russian");
+	SetConsoleOutputCP(866);
 
-    test_similarity(L"Корова", L"Корова");
-    test_similarity(L"Корова", L"Кырова");
-    test_similarity(L"Корова", L"Карова");
-    test_similarity(L"Корова", L"Карафа");
-    test_similarity(L"Корова", L"КАрова");
-    test_similarity(L"Корова", L"КоровА");
-    test_similarity(L"Корова", L"КороВА");
-    test_similarity(L"Корова", L"Коро1А");
-    test_similarity(L"Корова", L"Коров");
-    test_similarity(L"Корова", L"К");
-    test_similarity(L"Корова", L"КОРОВА");
-    test_similarity(L"Корова", L"123345");
-    test_similarity(L"Корова", L"окорав");
-    test_similarity(L"Корова", L"ОКОРАВ");
-    test_similarity(L"Корова", L"кОРОВА");
-    test_similarity(L"Корова", L"KOROVA");
+    TestSimilarity(L"Корова", L"Корова");
+    TestSimilarity(L"Корова", L"Кырова");
+    TestSimilarity(L"Корова", L"Карова");
+    TestSimilarity(L"Корова", L"Карафа");
+    TestSimilarity(L"Корова", L"КАрова");
+    TestSimilarity(L"Корова", L"КоровА");
+    TestSimilarity(L"Корова", L"КороВА");
+    TestSimilarity(L"Корова", L"Коро1А");
+    TestSimilarity(L"Корова", L"Коров");
+    TestSimilarity(L"Корова", L"К");
+    TestSimilarity(L"Корова", L"КОРОВА");
+    TestSimilarity(L"Корова", L"123345");
+    TestSimilarity(L"Корова", L"окорав");
+    TestSimilarity(L"Корова", L"ОКОРАВ");
+    TestSimilarity(L"Корова", L"кОРОВА");
+    TestSimilarity(L"Корова", L"KOROVA");
 
-    test_similarity("korova", "KOROVA");
+    TestSimilarity("korova", "KOROVA");
 
     return 0;
 }
@@ -69,31 +69,16 @@ int main()
 //
 
 template <typename Type>
-void printString(Type &s)
-{
-    if (sizeof(wchar_t) == sizeof(s[0]))
-        std::wcout << s;
-    else
-        std::cout << s;
-}
-
-template <typename Type>
-void test_similarity(Type s1, Type s2)
-{
+void TestSimilarity(Type s1, Type s2) {
     std::cout << "================================================\n";
     std::cout << "Test similarity of:\n";
 
-    printString(s1);
-    std::cout << " and ";
-    printString(s2);
-    std::cout << std::endl;
+    std::wcout << s1 << L" and " << s2 << std::endl;
 
-    float similarity = StringComparison::getSimilarity(
-        s1, s2, StringComparison::CASE_SENSITIVE
-    );
+    float similarity = StringComparison::GetSimilarity(s1, s2,
+		StringComparison::CASE_SENSITIVE);
 
     std::cout << "Similarity is: " << similarity << std::endl;
-
 }
 
 //

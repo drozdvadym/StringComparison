@@ -31,8 +31,8 @@
 
 
 //
-// Get modified Levenshtein distance for to strings
-// this distance depends of symbol register and phonetic group 
+// Get modified Levenshtein distance for two strings
+// this distance depends on symbol register and phonetic group 
 //
 // available _Str_T types:
 //  - char
@@ -45,35 +45,12 @@ template <typename _Str_T>
 float Levenshtein(_Str_T* s1, _Str_T* s2);
 
 //
-// Get  phonetic group for symbol
+// Get phonetic group for symbol
 // NOTE!!! now support only russian wide char symbols
 //
 
-wchar_t getMetaphone(wchar_t wsym);
-
-///////////////////////////////////////////////////////////////////////////////
-// %% BeginSection: inline function
-//
-
-inline char _T_lower(char c)
-{
-    return std::tolower(c);
-}
-
-inline wchar_t _T_lower(const wchar_t wc)
-{
-    return std::towlower(wc);
-}
-
-inline size_t _T_slen(const char *s)
-{
-    return std::strlen(s);
-}
-
-inline size_t _T_slen(const wchar_t *ws)
-{
-    return std::wcslen(ws);
-}
+wchar_t GetMetaphone(wchar_t wsym);
+char GetMetaphone(char sym);
 
 //
 //
